@@ -1,2 +1,3 @@
-# novi-plugin-link
-novi-plugin-link
+# novi-link
+
+## Novi Builder Link Plugin
