@@ -1,6 +1,6 @@
 {
   "name": "@novi_dev/novi-plugin-link",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "Novi Link Plugin",
   "main": "dist/novi-plugin-link.js",
   "repository": {
