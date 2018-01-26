@@ -7,12 +7,16 @@ const Plugin = {
     name: "novi-plugin-link",
     title: "Novi Link",
     description: "Novi Link description",
-    version: "1.0.4",
+    version: "1.0.5",
     dependencies: {
-        novi: "0.8.6"
+        novi: "0.8.8"
     },
     defaults: {
-        querySelector: "a[href]"
+        querySelector: "a[href]",
+        favoriteLinks: [
+            {title: "", value: ""}
+        ],
+        applyToProjectElements: true
     },
     ui: {
         editor: [LinkEditor],
