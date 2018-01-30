@@ -20,7 +20,7 @@ const Plugin = {
     },
     ui: {
         editor: [LinkEditor],
-        settings: <LinkSettings />,
+        settings: <LinkSettings/>,
     },
     excerpt: ExcerptFunction.isLinkReplaceble,
     onLanguageChange: onLanguageChange

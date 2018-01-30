@@ -5,9 +5,9 @@ UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 module.exports = {
     entry: "./src/novi-link.jsx",
     output: {
-        filename: "dist/novi-plugin-link.js",
+        filename: "./dist/novi-plugin-link.js",
         libraryTarget: 'commonjs2',
-        library: 'novi-button'
+        library: 'novi-plugin-link'
     },
 
     externals: [],

@@ -13,8 +13,8 @@ export default class Header extends Component {
         let href = novi.element.getAttribute(props.element, 'href');
         this.pages = this._getPages(novi.utils.getProjectPages());
         this.favoriteLinks = this._getLinks(novi.plugins.settings.get("novi-plugin-link").favoriteLinks);
-
         let type = this._getLinkTypeFromValue(href);
+
         this.state = {
             type,
             element: props.element,

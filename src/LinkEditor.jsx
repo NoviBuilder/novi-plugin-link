@@ -3,7 +3,7 @@ import Body from "./editor/Body";
 const Icons = novi.ui.icons;
 const messages = novi.language.getDataByKey("novi-plugin-link");
 const EditorItem = {
-    trigger: [Icons.ICON_LINK],
+    trigger: Icons.ICON_LINK,
     tooltip: messages.editor.tooltip,
     header: [Icons.ICON_LINK, <span>{messages.editor.header}</span>],
     body: [<Body/>],
