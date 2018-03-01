@@ -29,6 +29,7 @@ function onLanguageChange(plugin){
     let messages = Language.getDataByKey("novi-plugin-link");
     plugin.ui.editor[0].title = messages.editor.title;
     plugin.ui.editor[0].tooltip = messages.editor.tooltip;
+    plugin.ui.editor[0].header[1] = <span>{messages.editor.header}</span>;
     return plugin;
 }
 novi.plugins.register(Plugin);

@@ -30,7 +30,6 @@ export default class Header extends Component {
         this._renderSettingsData = this._renderSettingsData.bind(this);
         this._handleSelectChange = this._handleSelectChange.bind(this);
         this.onTargetChange = this.onTargetChange.bind(this);
-        this.messages = Language.getDataByKey("novi-plugin-link");
     }
 
     render() {
@@ -160,7 +159,6 @@ export default class Header extends Component {
     }
 
     _getLinkTypeFromValue(messages, value){
-        console.log(messages);
         let i;
         for (i=0; i < this.pages.length; i++){
             if (this.pages[i].value === value) return messages.body.pagesTabTitle;
