@@ -9,7 +9,7 @@ const EditorItem = {
     body: [<Body/>],
     closeIcon: "submit",
     width: 360,
-    height: 160,
+    height: 200,
     title: messages.editor.title,
     onSubmit: changeLink
 };
@@ -18,6 +18,17 @@ export default EditorItem;
 
 function changeLink(headerStates, bodyStates) {
     let state = bodyStates[0];
-    if (state.href === state.value) return;
-    novi.element.setAttribute(state.element, "href", state.value);
+    if (state.href === state.value && state.initBlank === state.blank) return;
+    if (state.href !== state.value){
+        novi.element.setAttribute(state.element, "href", state.value);
+    }
+    if (state.initBlank !== state.blank){
+        if (state.blank){
+            novi.element.setAttribute(state.element, "target", "_blank");
+        }
+        else {
+            novi.element.removeAttribute(state.element, "target");
+        }
+    }
+
 }

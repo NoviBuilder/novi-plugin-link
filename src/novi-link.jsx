@@ -7,9 +7,9 @@ const Plugin = {
     name: "novi-plugin-link",
     title: "Novi Link",
     description: "Novi Link description",
-    version: "1.0.5",
+    version: "1.1.0",
     dependencies: {
-        novi: "0.8.8"
+        novi: "0.9.0"
     },
     defaults: {
         querySelector: "a[href]",

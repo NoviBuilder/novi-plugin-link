@@ -2,6 +2,7 @@ const Input = novi.ui.input;
 const Icons = novi.ui.icons;
 const RadioGroup = novi.ui.radioGroup;
 const Select = novi.ui.select;
+const Checkbox = novi.ui.checkbox;
 const React = novi.react.React;
 const Component = novi.react.Component;
 const Language = novi.language;
@@ -9,23 +10,26 @@ const Language = novi.language;
 export default class Header extends Component {
     constructor(props) {
         super();
-
+        this.messages = Language.getDataByKey("novi-plugin-link");
         let href = novi.element.getAttribute(props.element, 'href');
         this.pages = this._getPages(novi.utils.getProjectPages());
         this.favoriteLinks = this._getLinks(novi.plugins.settings.get("novi-plugin-link").favoriteLinks);
-        let type = this._getLinkTypeFromValue(href);
-
+        let type = this._getLinkTypeFromValue(this.messages.editor, href);
+        let initBlank = novi.element.getAttribute(props.element, 'target') === "_blank" || false;
         this.state = {
             type,
             element: props.element,
             value: href,
-            href
+            href,
+            initBlank,
+            blank: initBlank
         };
 
         this._handleChange = this._handleChange.bind(this);
         this._handleRadioButtonClick = this._handleRadioButtonClick.bind(this);
         this._renderSettingsData = this._renderSettingsData.bind(this);
         this._handleSelectChange = this._handleSelectChange.bind(this);
+        this.onTargetChange = this.onTargetChange.bind(this);
         this.messages = Language.getDataByKey("novi-plugin-link");
     }
 
@@ -42,7 +46,7 @@ export default class Header extends Component {
                 <p className="novi-label" style={{"marginTop": "0"}}>
                     {this.messages.editor.body.linkType}
                 </p>
-                <RadioGroup options={["Pages", "Favorites", "Custom"]} value={this.state.type}
+                <RadioGroup options={[this.messages.editor.body.pagesTabTitle, this.messages.editor.body.favoritesTabTitle, this.messages.editor.body.customTabTitle]} value={this.state.type}
                             onChange={this._handleRadioButtonClick}/>
                 {this._renderSettingsData()}
             </div>
@@ -77,9 +81,9 @@ export default class Header extends Component {
 
     _renderSettingsData() {
         switch (this.state.type) {
-            case "Custom":
+            case this.messages.editor.body.customTabTitle:
                 return this._renderCustomInput();
-            case "Favorites":
+            case this.messages.editor.body.favoritesTabTitle:
                 return this._renderFavoriteLinks();
             default:
                 return this._renderPagesSelect();
@@ -98,6 +102,9 @@ export default class Header extends Component {
                     options={this.pages} onChange={this._handleSelectChange}
                     value={this.state.value}
                 />
+                <div style={{marginTop: 10}}>
+                    <Checkbox checked={this.state.blank} onChange={this.onTargetChange}>{this.messages.editor.body.openInNewTab}</Checkbox>
+                </div>
             </div>
         )
     }
@@ -114,6 +121,9 @@ export default class Header extends Component {
                     options={this.favoriteLinks} onChange={this._handleSelectChange}
                     value={this.state.value}
                 />
+                <div style={{marginTop: 10}}>
+                    <Checkbox checked={this.state.blank} onChange={this.onTargetChange}>{this.messages.editor.body.openInNewTab}</Checkbox>
+                </div>
             </div>
         )
     }
@@ -126,8 +136,18 @@ export default class Header extends Component {
                     {this.messages.editor.body.inputLabel}
                 </p>
                 <Input onChange={this._handleChange} value={this.state.value}/>
+                <div style={{marginTop: 10}}>
+                    <Checkbox checked={this.state.blank} onChange={this.onTargetChange}>{this.messages.editor.body.openInNewTab}</Checkbox>
+                </div>
+
             </div>
         )
+    }
+
+    onTargetChange(){
+        this.setState({
+            blank: !this.state.blank
+        })
     }
 
     _handleSelectChange(item) {
@@ -139,14 +159,15 @@ export default class Header extends Component {
         this.setState({value})
     }
 
-    _getLinkTypeFromValue(value){
+    _getLinkTypeFromValue(messages, value){
+        console.log(messages);
         let i;
         for (i=0; i < this.pages.length; i++){
-            if (this.pages[i].value === value) return "Pages";
+            if (this.pages[i].value === value) return messages.body.pagesTabTitle;
         }
         for (i=0; i < this.favoriteLinks.length; i++){
-            if (this.favoriteLinks[i].value === value) return "Favorites";
+            if (this.favoriteLinks[i].value === value) return messages.body.favoritesTabTitle;
         }
-        return "Custom"
+        return messages.body.customTabTitle
     }
 }
